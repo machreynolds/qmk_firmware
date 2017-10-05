@@ -101,10 +101,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_NAV] = KEYMAP( \
-  _______, XXXXXXX, M(0),    KC_UP,   M(1),    XXXXXXX, XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX, _______, \
-  _______, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, KC_INS,  KC_HOME, KC_PGUP, XXXXXXX, _______, \
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,  KC_END,  KC_PGDN, XXXXXXX, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
+  LGUI(KC_GRV), XXXXXXX, M(0),    KC_UP,            M(1),    XXXXXXX, XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX, _______, \
+  _______,      XXXXXXX, KC_LEFT, KC_DOWN,          KC_RGHT, XXXXXXX, XXXXXXX, KC_INS,  KC_HOME, KC_PGUP, XXXXXXX, _______, \
+  _______,      XXXXXXX, XXXXXXX, LGUI(LSFT(KC_C)), XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,  KC_END,  KC_PGDN, XXXXXXX, _______, \
+  _______,      _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______, _______  \
 ),
 
 /* Adjust (Lower + Raise)
