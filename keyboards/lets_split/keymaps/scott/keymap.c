@@ -1,22 +1,23 @@
 #include "lets_split.h"
 #include "action_layer.h"
 #include "eeconfig.h"
+#include "mousekey.h"
 
 extern keymap_config_t keymap_config;
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-#define _QWERTY 0
-#define _NAV 1
-#define _LOWER 3
-#define _RAISE 4
-#define _ADJUST 16
+enum custom_layers {
+  _QWERTY,
+  _NAV,
+  _MOUSE,
+  _LOWER,
+  _RAISE,
+  _ADJUST,
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   NAV,
+  MOUSE,
   LOWER,
   RAISE,
   ADJUST,
@@ -43,14 +44,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |Sft\  |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |SftEtr|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | Gui  | Nav  |Lower |Space |Space |Raise | Nav  | AltGr| Down |  Up  |
+ * | Ctrl | Alt  | Gui  | Nav  |Lower |Space |Space |Raise | Nav  | AltGr| Down |Mouse |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = KEYMAP( \
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
   CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   SFT_BLS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT, \
-  KC_LCTL, KC_LALT, KC_LGUI, NAV,     LOWER,   RAI_SPC, LOW_SPC, RAISE,   NAV,     KC_RALT, KC_DOWN, KC_UP    \
+  KC_LCTL, KC_LALT, KC_LGUI, NAV,     LOWER,   RAI_SPC, LOW_SPC, RAISE,   NAV,     KC_RALT, KC_DOWN, MOUSE    \
 ),
 
 /* Lower
@@ -105,6 +106,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,      XXXXXXX, KC_LEFT, KC_DOWN,          KC_RGHT, XXXXXXX, XXXXXXX, KC_INS,  KC_HOME, KC_PGUP, XXXXXXX, _______, \
   _______,      XXXXXXX, XXXXXXX, LGUI(LSFT(KC_C)), XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,  KC_END,  KC_PGDN, XXXXXXX, _______, \
   _______,      _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______, _______  \
+),
+
+/* Mouse
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |  Up  |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      | Left | Down | Right|      |      | MSBT1| MSBT2| MSBT3|      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      | MSBT4| MSBT5|      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_MOUSE] = KEYMAP( \
+  KC_TAB,       XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
+  _______,      XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, KC_BTN3, XXXXXXX, _______, \
+  _______,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN4, KC_BTN5, XXXXXXX, XXXXXXX, _______, \
+  _______,      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
 ),
 
 /* Adjust (Lower + Raise)
@@ -173,6 +192,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_NAV);
       } else {
         layer_off(_NAV);
+      }
+      return false;
+      break;
+    case MOUSE:
+      if (record->event.pressed) {
+        layer_on(_MOUSE);
+      } else {
+        layer_off(_MOUSE);
       }
       return false;
       break;
