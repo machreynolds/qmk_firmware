@@ -112,17 +112,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |  Up  |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      | Left | Down | Right|      |      | MSBT1| MSBT2| MSBT3|      |      |
+ * |      |      | Left | Down | Right|whl_up|      | MSBT1| MSBT2| MSBT3|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      | MSBT4| MSBT5|      |      |      |
+ * |      |      |      |      |      |whl_dn|      | MSBT4| MSBT5|      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_MOUSE] = LAYOUT_ortho_4x12( \
   KC_TAB,       XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
-  _______,      XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, KC_BTN3, XXXXXXX, _______, \
-  _______,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN4, KC_BTN5, XXXXXXX, XXXXXXX, _______, \
+  _______,      XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, XXXXXXX, KC_BTN1, KC_BTN2, KC_BTN3, XXXXXXX, _______, \
+  _______,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_D, XXXXXXX, KC_BTN4, KC_BTN5, XXXXXXX, XXXXXXX, _______, \
   _______,      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
 ),
 
